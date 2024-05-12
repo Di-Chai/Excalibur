@@ -12,7 +12,7 @@ The system is implemented on Linux OS (tested on Ubuntu 20.04) and the following
 
 - Docker
   - [Installing instructions.](https://docs.docker.com/engine/install/ubuntu/)
-  - Please also add the current user to docker group such that the docker could be executed without sudo. 
+  - Please also ensure "docker" commend could be executed without sudo. 
   - Tested version: Docker version 20.10.21
 - Docker-compose
   - [Installing instructions.](https://docs.docker.com/compose/install/linux/)
@@ -32,19 +32,21 @@ conda activate excalibur
 pip install -r docker/requirements.txt
 ```
 
-Test the environments:
-
-```bash
-
-```
-
 #### Step 3: Download the datasets.
 
 
 
 #### Step 4: Reproduce the results using scripts.
 
+(Note: The scripts use the docker-bridge network with subnet 171.20.0.0/24. If you already have a docker network with a conflict subnet, please remove it before running the scripts.)
 
+To verify whether the environment is settled, please run:
+
+```bash
+# Env: conda activate excalibur.
+# This will test SVD and its three applications using synthetic data.
+python trial.py test
+```
 
 ## Build the System (for debugging or reuse for other projects)
 
