@@ -430,7 +430,7 @@ if benchmark == "vary_num_clients_ts":
     dataset = "synthetic"
     for num_clients in [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]:
         n = num_clients * ni
-        for svd_mode in [0]:
+        for svd_mode in [0, 1]:
             if svd_mode in [1, 2, 3]:
                 if (data_ids[dataset][2] or n) < 100:
                     top_k = 4
