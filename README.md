@@ -24,11 +24,17 @@ The system is implemented on Linux OS (tested on Ubuntu 20.04) and the following
 
 ```bash
 git clone https://github.com/Di-Chai/Excalibur
-cd Excalibur/docker
-docker build . -t excalibur:v1
+cd Excalibur
+docker build docker/ -t excalibur:v1
 conda create -y -n excalibur python=3.8
 conda activate excalibur
-pip install -r requirements.txt
+pip install -r docker/requirements.txt
+```
+
+Test the environments:
+
+```bash
+
 ```
 
 #### Step 3: Download the datasets.

@@ -66,7 +66,10 @@ force_run = True
 def generate_data(dataset, seed, num_clients, svd_mode, m=None, n=None, evaluate=1):
     gd_commend = f'docker run -it --rm --name decfedsvd_gd -v {project_path}:/data -w /data/build excalibur:v1 ./gd {seed} {data_ids[dataset][0]} {num_clients} {data_ids[dataset][1] or m} {data_ids[dataset][2] or n} {evaluate} {svd_mode}'
     commend_file = os.path.join("datasets", dataset, "commend.txt")
-    client_files = [e for e in os.listdir(os.path.join("datasets", dataset)) if e.startswith("Client") and e.endswith(".mat")]
+    try:
+        client_files = [e for e in os.listdir(os.path.join("datasets", dataset)) if e.startswith("Client") and e.endswith(".mat")]
+    except FileNotFoundError:
+        client_files = []
     all_file_exist = True
     for i in range(num_clients):
         if f"Client{i}.mat" not in client_files:
