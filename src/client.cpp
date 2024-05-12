@@ -214,7 +214,7 @@ void DecentralizedClient::load_data(){
 
 void DecentralizedClient::remove_input_data(){
     remove((dpath + "/Client" + to_string(client_id) + ".mat").c_str());
-    if(client_id == 0) remove((dpath + "/commend.txt").c_str());
+    if(client_id == 0) remove((dpath + "/command.txt").c_str());
 }
 
 DecentralizedClient::~DecentralizedClient(){

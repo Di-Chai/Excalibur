@@ -73,7 +73,27 @@ python trial.py test
 
 #### Step 1: Download the datasets.
 
+Download the dataset from:
+- Google Drive: https://drive.google.com/file/d/1eqKgZiisBMhWQNZBDBMAlmcUFOdvtdV5/view?usp=drive_link
+- or Nutstore storage: https://www.jianguoyun.com/p/DTMf944QhdfRChi9y8IFIAA
 
+Extract the data to the project path through `tar -zxvf datasets.tar.gz`.
+
+The file tree after extraction:
+
+```
+├── datasets
+│   ├── ml100k
+│   ├── ml25m
+│   ├── mnist
+│   ├── synthetic
+│   ├── syntheticlr
+│   ├── synthetic_very_large
+│   └── wine
+├── docker
+├── include
+└── src
+```
 
 #### Step 2: Reproduce the results using scripts.
 
@@ -113,7 +133,7 @@ Reproducing the results with and without the proposed optimizations, i.e., Figur
 python trial.py opt
 ```
 
-## Build the System (for debugging or reuse for other projects)
+## Mannually Build the System (for debugging or reuse for other projects)
 
 With docker:
 
