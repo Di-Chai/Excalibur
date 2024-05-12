@@ -35,7 +35,7 @@ Guidelines to read and reuse the code:
 - The major matrix computations like factorizing the data and protecting the data are implemented in `src/bbtsvd.cpp`.
 - The system runs through docker-compose and different participants are put into different containers. To simplify the process of reproduction, we provide scripts with different options in `trial.py`. To reproduce the results, please first [Prepare the Environments](#prepare-the-environments) and refer to [Reproduce the Results](#reproduce-the-results) for more details.
 
-## Prepare the Environments
+## Getting Started Instructions
 
 #### Step 1: OS and software.
 
@@ -57,11 +57,13 @@ The system is implemented on Linux OS (tested on Ubuntu 20.04) and the following
 ```bash
 git clone https://github.com/Di-Chai/Excalibur
 cd Excalibur
-docker build docker/ -t excalibur:v1
+docker build docker/ -t excalibur:v1    // Building the image may take more than 10Mins.
 conda create -y -n excalibur python=3.8
 conda activate excalibur
 pip install -r docker/requirements.txt
 ```
+
+#### Step 3: Quick testing.
 
 ```bash
 # Env: conda activate excalibur.
@@ -69,7 +71,7 @@ pip install -r docker/requirements.txt
 python trial.py test
 ```
 
-## Reproduce the Results
+## Detailed Instructions to Reproduce the Results
 
 #### Step 1: Download the datasets.
 
@@ -97,41 +99,97 @@ The file tree after extraction:
 
 #### Step 2: Reproduce the results using scripts.
 
-(Note: The scripts use the docker-bridge network with subnet 171.20.0.0/24. If you already have a docker network with a conflict subnet, please remove it before running the scripts.)
+The scripts use the docker-bridge network with subnet 171.20.0.0/24. If you already have a docker network with a conflict subnet, please remove it before running the scripts. For the detailed testbed, please refer to Section 8.1 in our paper.
+
+```bash
+# Create one folder for storing the results.
+mkdir records
+```
+
+----
 
 Reproducing the accuracy results, i.e., Table 3.
 
 ```bash
+# This will cost about 1 minutes.
 python trial.py accuracy
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs records/accuracy
 ```
+
+Please compare the `svd_error` in 'records/accuracy/results.csv' with Table 3 in the paper.
+
+**Tips: `results.csv` could be opened using Microsoft Excel (or other tools), which is better for sorting and viewing the results.**
+
+----
 
 Reproducing the efficiency results on SVD tasks, i.e., Figure 8.
 ```bash
+# This will cost more than 10 hours using 8 cores, 128GB RAM, and 2TB SSD storage.
 python trial.py large_scale_svd_short_wide
 python trial.py large_scale_svd_tall_skinny
+# This will cost 1~2 hours.
 python trial.py bandwidth
 python trial.py latency
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs records/large_scale_svd
 ```
+
+Please compare the `time` (seconds) in 'records/large_scale_svd/results.csv' with Figure 8 in the paper.
+
+----
 
 Reproducing the comparison to the HE-based method on the PCA application, i.e., Table 4.
 ```bash
+# This will cost 3~4 minutes and require machine with 24 cores to support 6 participants.
 python trial.py comparing_to_sfpca
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs records/comparing_to_sfpca
 ```
+
+Please compare the `time` (seconds) in 'records/comparing_to_sfpca/results.csv' with Table 4 in the paper.
+
+----
 
 Reproducing the comparison results on LR application, i.e., Figure 10.
 ```bash
+# This will cost more than 10 hours using 8 cores CPU, 128GB RAM, and 2TB SSD storage.
 python trial.py large_scale_lr_tall_skinny
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs records/large_scale_lr_tall_skinny
 ```
+
+Please compare the `time` (seconds) in 'records/large_scale_lr_tall_skinny/results.csv' with Figure 10 in the paper.
+
+----
 
 Reproducing the scalability results, i.e., Figure 11.
 ```bash
+# This will cost abour an hour.
 python trial.py vary_num_clients_ts
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs records/vary_num_clients_ts
 ```
+
+Please compare the `time` (seconds) in 'records/vary_num_clients_ts/results.csv' with Figure 11 in the paper.
+
+----
 
 Reproducing the results with and without the proposed optimizations, i.e., Figure 12.
 ```bash
+# This will cost more than 10 hours.
 python trial.py opt
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs records/opt
 ```
+
+Please compare the `time` (seconds) in 'records/opt/results.csv' with Figure 12 in the paper.
 
 ## Mannually Build the System (for debugging or reuse for other projects)
 
