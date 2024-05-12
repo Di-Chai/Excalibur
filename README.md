@@ -4,7 +4,7 @@ This is a fully functional Excalibur system for the paper "Efficient Decentraliz
 
 ## Project Structure
 
-```bash
+```
 .
 ├── CMakeLists.txt
 ├── docker
