@@ -234,9 +234,7 @@ if benchmark == "accuracy":
     bandwidth = "10000Mbit"
     delay = "0ms"
     seed = 0
-    # for dataset in ["wine", "ml100k", "mnist", "synthetic"]:
-    for dataset in ["mnist"]:
-        # for svd_mode in [0, 1, 2, 3, 4]:
+    for dataset in ["wine", "ml100k", "mnist", "synthetic"]:
         for svd_mode in [0]:
             if svd_mode in [1, 2, 3]:
                 if (data_ids[dataset][2] or n) < 100:

@@ -1234,8 +1234,7 @@ void DecentralizedClient::run(){
             }
             ring_all_reduce_sum(&singular_vector_error_vt, 1);
             singular_vector_error_vt = pow(singular_vector_error_vt / (sigma_count * global_n), 0.5);
-
-            LOG(INFO) << "Singular Vector Error (RMSE) VT " << singular_vector_error_vt << endl;
+            // LOG(INFO) << "Singular Vector Error (RMSE) VT " << singular_vector_error_vt << endl;
             
             // Debug Informations
             // sleep(client_id);
@@ -1243,7 +1242,7 @@ void DecentralizedClient::run(){
             // print_matrix("v_ground_truth", 1, global_n, v_ground_truth);
 
             // if(client_id == 0) print_matrix("Sigma", 1, sigma_count, sigma);
-
+            
             if(m > global_n){
                 mkl_dimatcopy('R', 'T', sigma_count, local_n, 1, FinalVT, local_n, sigma_count);
                 LOG(INFO) << "Final SVD Error " << svd_reconstruction_error(FinalVT, sigma, FinalU, raw_x, local_n, m, sigma_count);
@@ -1251,13 +1250,13 @@ void DecentralizedClient::run(){
             }else{
                 LOG(INFO) << "Final SVD Error " << svd_reconstruction_error(FinalU, sigma, FinalVT, raw_x, m, local_n, sigma_count);
             }
-            if(client_id == 0){
-                if(m <= global_n) mkl_dimatcopy('R', 'T', sigma_count, m, 1, FinalU, m, sigma_count);
-                double *u_ground_truth; load_memmap_file(&u_ground_truth, dpath + "/u.mat", false);
-                double singular_vector_error_u = singular_vector_error_rmse(sigma_count, m, u_ground_truth, FinalU);
-                LOG(INFO) << "Singular Vector Error (RMSE) U " << singular_vector_error_u;
-                LOG(INFO) << "Singular Vector Error (RMSE) Average " << (singular_vector_error_u + singular_vector_error_vt) / 2;
-            }
+            // if(client_id == 0){
+            //     if(m <= global_n) mkl_dimatcopy('R', 'T', sigma_count, m, 1, FinalU, m, sigma_count);
+            //     double *u_ground_truth; load_memmap_file(&u_ground_truth, dpath + "/u.mat", false);
+            //     double singular_vector_error_u = singular_vector_error_rmse(sigma_count, m, u_ground_truth, FinalU);
+            //     LOG(INFO) << "Singular Vector Error (RMSE) U " << singular_vector_error_u;
+            //     LOG(INFO) << "Singular Vector Error (RMSE) Average " << (singular_vector_error_u + singular_vector_error_vt) / 2;
+            // }
         }
         if(svd_mode == 1 || svd_mode == 2){
             // Projection Distance of U (By client 0)
