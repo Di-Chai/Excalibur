@@ -73,10 +73,10 @@ int main(int argc, char **argv){
         {5, base_path + "datasets/syntheticlr"},
         {6, base_path + "datasets/synthetic_very_large"},
     };
-
-    for(auto iter=dpaths.begin(); iter!=dpaths.end(); iter++){
-        if(access(iter->second.c_str(), F_OK) == -1) mkdir(iter->second.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
-    }
+    
+    // for(auto iter=dpaths.begin(); iter!=dpaths.end(); iter++){
+    //     if(access(iter->second.c_str(), F_OK) == -1) mkdir(iter->second.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+    // }
     
     switch (datasets)
     {

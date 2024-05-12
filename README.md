@@ -12,6 +12,7 @@ The system is implemented on Linux OS (tested on Ubuntu 20.04) and the following
 
 - Docker
   - [Installing instructions.](https://docs.docker.com/engine/install/ubuntu/)
+  - Please also add the current user to docker group such that the docker could be executed without sudo. 
   - Tested version: Docker version 20.10.21
 - Docker-compose
   - [Installing instructions.](https://docs.docker.com/compose/install/linux/)
