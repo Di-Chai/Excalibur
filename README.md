@@ -77,7 +77,7 @@ python trial.py test
 
 Download the dataset from:
 - Google Drive: https://drive.google.com/file/d/1eqKgZiisBMhWQNZBDBMAlmcUFOdvtdV5/view?usp=drive_link
-- or Nutstore storage: https://www.jianguoyun.com/p/DTMf944QhdfRChi9y8IFIAA
+- Or Nutstore storage: https://www.jianguoyun.com/p/DTMf944QhdfRChi9y8IFIAA
 
 Extract the data to the project path through `tar -zxvf datasets.tar.gz`.
 
