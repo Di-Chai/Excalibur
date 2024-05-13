@@ -94,7 +94,7 @@ def run(dataset, m, n, num_clients, top_k, svd_mode, seed, bandwidth, delay, eva
     n = data_ids[dataset][2] or n
 
     if num_clients * core_per_peer > max_cpu_count:
-        raise ValueError(f"num_clients*core_per_peer={num_clients * core_per_peer} while max_cpu_count={max_cpu_count}")
+        raise ValueError(f"This machine does not have enough CPU cores to run the experiment! Require num_clients*core_per_peer={num_clients * core_per_peer} while max_cpu_count={max_cpu_count}")
 
     if dataset == "synthetic_very_large" and evaluate:
         raise ValueError("Cannot evaluate under synthetic_very_large")
@@ -173,7 +173,6 @@ latency_benchmark = ['0ms', '5ms', '10ms', '15ms', '20ms', '25ms', '30ms', '35ms
 
 large_scale_size = [1000000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000, 20000000, 30000000, 40000000, 50000000]
 
-
 if benchmark == "debug":
     m = 1000
     n = 20000
@@ -189,10 +188,9 @@ if benchmark == "debug":
     opt_control = 3
     run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap, opt_control=opt_control)
 
-
 if benchmark == "opt":
     n = 10000
-    num_clients = 10
+    num_clients = 2
     evaluate = 0
     is_memmap = 0
     bandwidth = "1024Mbit"
@@ -201,14 +199,13 @@ if benchmark == "opt":
     dataset = "synthetic"
     top_k = -1
     svd_mode = 0
-    for m in [500000, 400000, 300000, 200000, 100000]:
+    for m in [20000, 40000, 60000, 80000, 100000]:
         for opt_control in [0, 1, 3]:
             run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap, opt_control=opt_control)
 
-
 if benchmark == "test":
     num_clients = 2
-    m = 1000; n = 10000
+    m = 10000; n = 1000
     evaluate = 1
     is_memmap = 0
     bandwidth = "10000Mbit"
@@ -224,7 +221,6 @@ if benchmark == "test":
         else:
             top_k = -1
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "accuracy":
     # Accuracy Test
@@ -245,29 +241,18 @@ if benchmark == "accuracy":
                 top_k = -1
             run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
-
 if benchmark == "bandwidth":
     dataset = "synthetic"
     num_clients = 2
     delay = "0ms"
-    evaluate = 1
+    evaluate = 0
     is_memmap = 0
     svd_mode = 0
     top_k = -1
     seed = 0
     
-    m = 10000
-    n = 1000
-    for bandwidth in bandwidth_benchmark:
-        run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
     m = 1000000
     n = 1000
-    for bandwidth in bandwidth_benchmark:
-        run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
-    m = 1000
-    n = 10000
     for bandwidth in bandwidth_benchmark:
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
@@ -275,38 +260,26 @@ if benchmark == "bandwidth":
     n = 1000000
     for bandwidth in bandwidth_benchmark:
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "latency":
     dataset = "synthetic"
     num_clients = 2
     bandwidth = "10000Mbit"
-    evaluate = 1
+    evaluate = 0
     is_memmap = 0
     svd_mode = 0
     top_k = -1
     seed = 0
     
-    m = 10000
-    n = 1000
-    for delay in latency_benchmark:
-        run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
     m = 1000000
     n = 1000
     for delay in latency_benchmark:
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
     m = 1000
-    n = 10000
-    for delay in latency_benchmark:
-        run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-    
-    m = 1000
     n = 1000000
     for delay in latency_benchmark:
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "large_scale_svd_tall_skinny":
     dataset = "synthetic"
@@ -322,7 +295,6 @@ if benchmark == "large_scale_svd_tall_skinny":
     for m in large_scale_size:
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
-
 if benchmark == "large_scale_lr_tall_skinny":
     dataset = "synthetic"
     num_clients = 2
@@ -336,7 +308,6 @@ if benchmark == "large_scale_lr_tall_skinny":
     n = 1000
     for m in large_scale_size:
         run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "large_scale_svd_short_wide":
     dataset = "synthetic"
@@ -380,7 +351,6 @@ if benchmark == "large_scale_rpca":
     n = 50000
     run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
-
 if benchmark == "large_scale_lsa":
     dataset = "ml25m"
     num_clients = 2
@@ -394,7 +364,6 @@ if benchmark == "large_scale_lsa":
     m = -1
     n = -1
     run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "vary_num_clients_sw":
     m = 1000
@@ -416,7 +385,6 @@ if benchmark == "vary_num_clients_sw":
             else:
                 top_k = -1
             run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "vary_num_clients_ts":
     num_clients = 2
@@ -440,7 +408,6 @@ if benchmark == "vary_num_clients_ts":
                 top_k = -1
             run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
-
 if benchmark == "vary_num_clients_fix_size":
     num_clients = 2
     m = 1000
@@ -462,21 +429,19 @@ if benchmark == "vary_num_clients_fix_size":
                 top_k = -1
             run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
-
 if benchmark == "comparing_to_sfpca":
     dataset = 'synthetic'
     num_clients = 6
     bandwidth = "1024Mbit"
     delay = "10ms"
-    evaluate = 1
-    is_memmap = 1
+    evaluate = 0
+    is_memmap = 0
     seed = 0
     svd_mode = 2
     top_k = 5
     m = 1000
     n = 10000000
     run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
-
 
 if benchmark == "vary_min_mn":
     num_clients = 2

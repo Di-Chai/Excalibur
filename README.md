@@ -126,7 +126,7 @@ Please compare the `svd_error` in 'records/accuracy/results.csv' with Table 3 in
 
 Reproducing the efficiency results on SVD tasks, i.e., Figure 8.
 ```bash
-# This will cost more than 10 hours using 8 cores, 128GB RAM, and 2TB SSD storage.
+# This will cost more than 10 hours using 8 cores (2 participants), 128GB RAM, and 2TB SSD storage.
 python trial.py large_scale_svd_short_wide
 python trial.py large_scale_svd_tall_skinny
 # This will cost 1~2 hours.
@@ -143,7 +143,7 @@ Please compare the `time` (seconds) in 'records/large_scale_svd/results.csv' wit
 
 Reproducing the comparison to the HE-based method on the PCA application, i.e., Table 4.
 ```bash
-# This will cost 3~4 minutes and require machine with 24 cores to support 6 participants.
+# This will cost 3~4 minutes and require machine with at least 24 cores and about 256GB RAM to support 6 participants.
 python trial.py comparing_to_sfpca
 # Collect the results and rename the files
 python python/collect_logs.py logs/
@@ -156,7 +156,7 @@ Please compare the `time` (seconds) in 'records/comparing_to_sfpca/results.csv' 
 
 Reproducing the comparison results on LR application, i.e., Figure 10.
 ```bash
-# This will cost more than 10 hours using 8 cores CPU, 128GB RAM, and 2TB SSD storage.
+# This will cost more than 10 hours using 8 cores CPU (2 participants), 128GB RAM, and 2TB SSD storage.
 python trial.py large_scale_lr_tall_skinny
 # Collect the results and rename the files
 python python/collect_logs.py logs/
@@ -169,7 +169,8 @@ Please compare the `time` (seconds) in 'records/large_scale_lr_tall_skinny/resul
 
 Reproducing the scalability results, i.e., Figure 11.
 ```bash
-# This will cost abour an hour.
+# This will cost abour an hour and require machine with 80 cores to support up to 20 participants.
+# (Or you can adjust `core_per_peer = 4` in trial.py to reduce the required cores (e.g., `core_per_peer = 1`) but may get longer runtime.)
 python trial.py vary_num_clients_ts
 # Collect the results and rename the files
 python python/collect_logs.py logs/
@@ -182,14 +183,11 @@ Please compare the `time` (seconds) in 'records/vary_num_clients_ts/results.csv'
 
 Reproducing the results with and without the proposed optimizations, i.e., Figure 12.
 ```bash
-# This will cost more than 10 hours.
+# This will cost more than 10 hours since it takes significant long time without the proposed optimizations.
 python trial.py opt
-# Collect the results and rename the files
-python python/collect_logs.py logs/
-mv logs records/opt
 ```
 
-Please compare the `time` (seconds) in 'records/opt/results.csv' with Figure 12 in the paper.
+Please compare the `totally Costs` and `Overall Communication Cost` (seconds) in log files of 'records/opt/' with Figure 12 in the paper.
 
 ## Mannually Build the System (for debugging or reuse for other projects)
 
