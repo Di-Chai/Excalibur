@@ -33,7 +33,7 @@ This is a fully functional Excalibur system for the paper "Efficient Decentraliz
 Guidelines to read and reuse the code:
 - The major system workflow is implemented in `src/client.cpp` and starts at the `DecentralizedClient::run()` function.
 - The major matrix computations like factorizing the data and protecting the data are implemented in `src/bbtsvd.cpp`.
-- The system runs through docker-compose and different participants are put into different containers. To simplify the process of reproduction, we provide scripts with different options in `trial.py`. To reproduce the results, please first [Prepare the Environments](#prepare-the-environments) and refer to [Reproduce the Results](#reproduce-the-results) for more details.
+- The system runs through docker-compose and different participants are put into different containers. To simplify the process of reproduction, we provide scripts with different options in `trial.py`.
 
 ## Getting Started Instructions
 
