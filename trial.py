@@ -156,7 +156,7 @@ def run(dataset, m, n, num_clients, top_k, svd_mode, seed, bandwidth, delay, eva
     if limit_network:
         rl.stop()
     os.system("docker-compose rm -f")
-    os.system("docker network rm decfedsvd_dec_fedsvd")
+    os.system("docker network rm excalibur_dec_fedsvd")
 
 
 if len(sys.argv) > 1:
