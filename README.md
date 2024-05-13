@@ -69,7 +69,18 @@ pip install -r docker/requirements.txt
 # Env: conda activate excalibur.
 # This will test SVD and its three applications using synthetic data.
 python trial.py test
+# Collect the results and rename the files
+python python/collect_logs.py logs/
+mv logs tmp_test
 ```
+
+If everything goes well, you will see the system execution process.
+
+![test_success](./assets/test_success.png)
+
+And the `tmp_test/result.csv` contains all the test results.
+
+![test_csv](./assets/test_csv.png)
 
 ## Detailed Instructions to Reproduce the Results
 
