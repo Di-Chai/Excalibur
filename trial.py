@@ -474,7 +474,7 @@ if benchmark == "comparing_to_sfpca":
     svd_mode = 2
     top_k = 5
     m = 1000
-    n = 1000000
+    n = 10000000
     run(dataset=dataset, m=m, n=n, top_k=top_k, num_clients=num_clients, svd_mode=svd_mode, seed=seed, bandwidth=bandwidth, delay=delay, evaluate=evaluate, is_memmap=is_memmap)
 
 
