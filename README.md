@@ -57,11 +57,13 @@ The system is implemented on Linux OS (tested on Ubuntu 20.04) and the following
 ```bash
 git clone https://github.com/Di-Chai/Excalibur
 cd Excalibur
-docker build docker/ -t excalibur:v1    // Building the image may take more than 10Mins.
+docker build docker/ -t excalibur:v1    // Building the image may take more than 10Mins depanding on the netwrok.
 conda create -y -n excalibur python=3.8
 conda activate excalibur
 pip install -r docker/requirements.txt
 ```
+
+If you have problems building the docker image, you can also download it from DockerHub: `docker pull dichai/excalibur:v1` and rename the image as `docker tag dichai/excalibur:v1 excalibur:v1`
 
 #### Step 3: Quick testing.
 
@@ -126,7 +128,7 @@ mkdir records
 Reproducing the accuracy results, i.e., Table 3.
 
 ```bash
-# This will cost about 1 minutes.
+# This will cost about 1 minute.
 python trial.py accuracy
 # Collect the results and rename the files
 python python/collect_logs.py logs/
