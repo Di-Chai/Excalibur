@@ -45,7 +45,6 @@ records
 
 .ipynb_checkpoints
 *.log
-*.png
 *.mat
 *.ipynb
 *.pdf
