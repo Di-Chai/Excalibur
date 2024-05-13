@@ -80,7 +80,11 @@ If everything goes well, you will see the system execution process.
 
 And the `tmp_test/result.csv` contains all the test results.
 
+**Tips: `results.csv` could be opened using Microsoft Excel (or other tools), which is better for sorting and viewing the results.**
+
 ![test_csv](./assets/test_csv.png)
+
+[Detailed explanation of each keyword in result.csv](./assets/result_csv.md)
 
 ## Detailed Instructions to Reproduce the Results
 
@@ -130,8 +134,6 @@ mv logs records/accuracy
 ```
 
 Please compare the `svd_error` in 'records/accuracy/results.csv' with Table 3 in the paper.
-
-**Tips: `results.csv` could be opened using Microsoft Excel (or other tools), which is better for sorting and viewing the results.**
 
 ----
 
