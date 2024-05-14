@@ -44,10 +44,10 @@ The system is implemented on Linux OS (tested on Ubuntu 20.04) and the following
 - Docker
   - [Installing instructions.](https://docs.docker.com/engine/install/ubuntu/)
   - Please also ensure the "docker" command can be executed without sudo. 
-  - Tested version: Docker version 20.10.21
+  - Tested version: Docker version 20.10.21 and 24.0.5
 - Docker-compose
   - [Installing instructions.](https://docs.docker.com/compose/install/linux/)
-  - Tested version: docker-compose version 1.28.5
+  - Tested version: docker-compose version 1.28.5 and 1.29.2
 - MiniConda
   - [Installing instructions.](https://docs.anaconda.com/free/miniconda/miniconda-install/)
   - Tested version: conda 23.5.2
