@@ -2,3 +2,4 @@ docker
 pyyaml
 apscheduler
 numpy
+requests<=2.31.0
